@@ -46,44 +46,28 @@ public class BlockDescriptorWordTest {
 
   @Test
   public void getValidSegmentLength() throws DescriptorWordException {
-    array[0] = (byte)0x00;
-    array[1] = (byte)0xff;
-    array[2] = (byte)0x00;
-    array[3] = (byte)0x00;
-
+    array = new byte[] {(byte)0x00, (byte)0xff, (byte)0x00, (byte)0x00};
     dw.setBuffer(array);
     Assert.assertEquals(dw.getSegmentLength(), 255);
   }
 
   @Test
   public void getValidSegmentLength2() throws DescriptorWordException {
-    array[0] = (byte)0x80;
-    array[1] = (byte)0xff;
-    array[2] = (byte)0xff;
-    array[3] = (byte)0xff;
-
+    array = new byte[] {(byte)0x80, (byte)0xff, (byte)0xff, (byte)0xff};
     dw.setBuffer(array);
     Assert.assertEquals(dw.getSegmentLength(), 16777215);
   }
 
   @Test (expected = DescriptorWordException.class)
   public void getTooLargeSegmentLength() throws DescriptorWordException {
-    array[0] = (byte)0x7f;
-    array[1] = (byte)0xff;
-    array[2] = (byte)0x00;
-    array[3] = (byte)0x00;
-
+    array = new byte[] {(byte)0x7f, (byte)0xff, (byte)0x00, (byte)0x00};
     dw.setBuffer(array);
     dw.getSegmentLength();
   }
 
   @Test (expected = DescriptorWordException.class)
   public void getTooSmallSegmentLength() throws DescriptorWordException {
-    array[0] = (byte)0x00;
-    array[1] = (byte)0x00;
-    array[2] = (byte)0x00;
-    array[3] = (byte)0x00;
-
+    array = new byte[] {(byte)0x00, (byte)0x00, (byte)0x00, (byte)0x00};
     dw.setBuffer(array);
     dw.getSegmentLength();
   }
@@ -92,7 +76,7 @@ public class BlockDescriptorWordTest {
   public void setValidSegmentLength() throws DescriptorWordException {
     dw.setBuffer(array);
     dw.setSegmentLength(255, true);
-    byte[] expected = {(byte)0x80, 0x00, 0x00, (byte)0xff};
+    byte[] expected = new byte[] {(byte)0x80, (byte)0x00, (byte)0x00, (byte)0xff};
     Assert.assertArrayEquals(array, expected);
   }
 
@@ -100,7 +84,7 @@ public class BlockDescriptorWordTest {
   public void setValidSegmentLength2() throws DescriptorWordException {
     dw.setBuffer(array);
     dw.setSegmentLength(255, false);
-    byte[] expected = {0x00, (byte)0xff, 0x00, 0x00};
+    byte[] expected = new byte[] {(byte)0x00, (byte)0xff, (byte)0x00, (byte)0x00};
     Assert.assertArrayEquals(array, expected);
   }
 
