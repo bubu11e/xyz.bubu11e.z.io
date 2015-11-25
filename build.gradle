@@ -1,0 +1,20 @@
+apply plugin: 'java'
+
+sourceCompatibility = 1.8
+def title = 'io.julien_g.z.io'
+version = '1.0'
+
+jar {
+  manifest {
+    attributes 'Implementation-Title': title,
+               'Implementation-Version': version
+  }
+}
+
+repositories {
+  mavenCentral()
+}
+
+dependencies {
+  testCompile group: 'junit', name: 'junit', version: '4.+'
+}
