@@ -14,16 +14,16 @@
  *    limitations under the License.
  */
 
-package io.julien_g.z.io.core.reader;
+package xyz.julien_g.z.io.core.writer;
 
-public class ReaderException extends Exception {
+public class WriterException extends Exception {
 
-  public ReaderException(Exception e) {
+  public WriterException(Exception e) {
   	super(e);
   }
 
-  public ReaderException(String msg) {
+  public WriterException(String msg) {
   	super(msg);
   }
-
+  
 }

@@ -14,16 +14,12 @@
  *    limitations under the License.
  */
 
-package io.julien_g.z.io.core.writer;
+package xyz.julien_g.z.io.core.dw;
 
-public class WriterException extends Exception {
+public class DescriptorWordException extends Exception {
 
-  public WriterException(Exception e) {
-  	super(e);
+  public DescriptorWordException(String msg) {
+    super(msg);
   }
 
-  public WriterException(String msg) {
-  	super(msg);
-  }
-  
 }

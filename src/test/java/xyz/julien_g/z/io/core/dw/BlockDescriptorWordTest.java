@@ -14,14 +14,14 @@
  *    limitations under the License.
  */
 
-package io.julien_g.z.io.core.dw;
+package xyz.julien_g.z.io.core.dw;
 
 import org.junit.*;
 import org.junit.Assert.*;
 
-public class RecordDescriptorWordTest {
+public class BlockDescriptorWordTest {
 
-  private RecordDescriptorWord dw = null;
+  private BlockDescriptorWord dw = null;
   private byte[] array = null;
 
   @BeforeClass
@@ -34,7 +34,7 @@ public class RecordDescriptorWordTest {
 
   @Before
   public void setUp() {
-    dw = new RecordDescriptorWord();
+    dw = new BlockDescriptorWord();
     array = new byte[4];
   }
 
@@ -53,14 +53,14 @@ public class RecordDescriptorWordTest {
 
   @Test
   public void getValidSegmentLength2() throws DescriptorWordException {
-    array = new byte[] {(byte)0x7f, (byte)0xf8, (byte)0x00, (byte)0x00};
+    array = new byte[] {(byte)0x80, (byte)0xff, (byte)0xff, (byte)0xff};
     dw.setBuffer(array);
-    Assert.assertEquals(dw.getSegmentLength(), 32760);
+    Assert.assertEquals(dw.getSegmentLength(), 16777215);
   }
 
   @Test (expected = DescriptorWordException.class)
   public void getTooLargeSegmentLength() throws DescriptorWordException {
-    array = new byte[] {(byte)0xff, (byte)0xff, (byte)0x00, (byte)0x00};
+    array = new byte[] {(byte)0x7f, (byte)0xff, (byte)0x00, (byte)0x00};
     dw.setBuffer(array);
     dw.getSegmentLength();
   }
@@ -73,37 +73,17 @@ public class RecordDescriptorWordTest {
   }
 
   @Test
-  public void getValidSegmentCode() throws DescriptorWordException {
-    array = new byte[] {(byte)0x00, (byte)0xff, (byte)0x03, (byte)0x00};
-    dw.setBuffer(array);
-    Assert.assertEquals(dw.getSegmentCode(), RecordDescriptorWord.Code.OTHER_SEGMENT);
-  }
-
-  @Test (expected = DescriptorWordException.class)
-  public void getInvalidSegmentCode() throws DescriptorWordException {
-    array = new byte[] {(byte)0x00, (byte)0xff, (byte)0x04, (byte)0x00};
-    dw.setBuffer(array);
-    dw.getSegmentCode();
-  }
-
-  @Test
-  public void getValidLastByte() throws DescriptorWordException {
-    array = new byte[] {(byte)0x00, (byte)0xff, (byte)0x00, (byte)0x00};
-    dw.setBuffer(array);
-    Assert.assertTrue(dw.isLastByteValid());
-  }
-
-  @Test
-  public void getInvalidLastByte() throws DescriptorWordException {
-    array = new byte[] {(byte)0x00, (byte)0xff, (byte)0x00, (byte)0x01};
-    dw.setBuffer(array);
-    Assert.assertFalse(dw.isLastByteValid());
-  }
-
-  @Test
   public void setValidSegmentLength() throws DescriptorWordException {
     dw.setBuffer(array);
-    dw.setSegmentLength((short)255);
+    dw.setSegmentLength(255, true);
+    byte[] expected = new byte[] {(byte)0x80, (byte)0x00, (byte)0x00, (byte)0xff};
+    Assert.assertArrayEquals(array, expected);
+  }
+
+  @Test
+  public void setValidSegmentLength2() throws DescriptorWordException {
+    dw.setBuffer(array);
+    dw.setSegmentLength(255, false);
     byte[] expected = new byte[] {(byte)0x00, (byte)0xff, (byte)0x00, (byte)0x00};
     Assert.assertArrayEquals(array, expected);
   }
@@ -111,29 +91,12 @@ public class RecordDescriptorWordTest {
   @Test (expected = DescriptorWordException.class)
   public void setTooLargeSegmentLength() throws DescriptorWordException {
     dw.setBuffer(array);
-    dw.setSegmentLength((short)32761);
+    dw.setSegmentLength(32761, false);
   }
 
   @Test (expected = DescriptorWordException.class)
   public void setTooSmallSegmentLength() throws DescriptorWordException {
     dw.setBuffer(array);
-    dw.setSegmentLength((short)0);
-  }
-
-  @Test
-  public void setValidSegmentCode() throws DescriptorWordException {
-    dw.setBuffer(array);
-    dw.setSegmentCode(RecordDescriptorWord.Code.FIRST_SEGMENT);
-    byte[] expected = new byte[] {(byte)0x00, (byte)0x00, (byte)0x01, (byte)0x00};
-    Assert.assertArrayEquals(array, expected);
-  }
-
-  @Test
-  public void setValidLastByte() throws DescriptorWordException {
-    array = new byte[] {(byte)0x00, (byte)0x00, (byte)0x00, (byte)0x01};
-    dw.setBuffer(array);
-    dw.setLastByte();
-    byte[] expected = new byte[] {(byte)0x00, (byte)0x00, (byte)0x00, (byte)0x00};
-    Assert.assertArrayEquals(array, expected);
+    dw.setSegmentLength(0, true);
   }
 }

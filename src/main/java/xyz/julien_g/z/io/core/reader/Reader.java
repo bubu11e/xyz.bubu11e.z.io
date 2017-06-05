@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-package io.julien_g.z.io.core.reader;
+package xyz.julien_g.z.io.core.reader;
 
 import java.io.Closeable;
 import java.io.IOException;

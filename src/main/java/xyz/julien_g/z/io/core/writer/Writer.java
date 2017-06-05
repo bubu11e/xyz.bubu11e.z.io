@@ -14,12 +14,23 @@
  *    limitations under the License.
  */
 
-package io.julien_g.z.io.core.dw;
+package xyz.julien_g.z.io.core.writer;
 
-public class DescriptorWordException extends Exception {
+import java.io.Closeable;
+import java.io.IOException;
 
-  public DescriptorWordException(String msg) {
-    super(msg);
-  }
+/**
+ * Simple interface for z/OS filesystem
+ * element writers.
+ */
+public interface Writer extends Closeable {
+
+  /**
+   * This function will write the specified object.
+   * @param object Object to write.
+   * @throws IOException If an I/O error occurs.
+   * @throws WriterException If the specified object is invalid.
+   */
+  public void write(byte[] object) throws IOException, WriterException;
 
 }

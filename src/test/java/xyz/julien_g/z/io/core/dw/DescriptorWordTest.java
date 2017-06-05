@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-package io.julien_g.z.io.core.dw;
+package xyz.julien_g.z.io.core.dw;
 
 import java.util.Random;
 
