@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-package xyz.julien_g.z.io.core.dw;
+package xyz.bubu11e.z.io.core.dw;
 
 /**
  * A descriptor word is a four byte length array used

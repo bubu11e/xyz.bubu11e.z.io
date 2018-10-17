@@ -3,7 +3,7 @@ apply plugin: 'java'
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
-def title = 'xyz.julien_g.z.io'
+def title = 'xyz.bubu11e.z.io'
 version = '1.0'
 
 compileJava {

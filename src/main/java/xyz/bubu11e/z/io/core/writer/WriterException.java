@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-package xyz.julien_g.z.io.core.writer;
+package xyz.bubu11e.z.io.core.writer;
 
 public class WriterException extends Exception {
 

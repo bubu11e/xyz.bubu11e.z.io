@@ -14,12 +14,16 @@
  *    limitations under the License.
  */
 
-package xyz.julien_g.z.io.core.dw;
+package xyz.bubu11e.z.io.core.reader;
 
-public class DescriptorWordException extends Exception {
+public class ReaderException extends Exception {
 
-  public DescriptorWordException(String msg) {
-    super(msg);
+  public ReaderException(Exception e) {
+  	super(e);
+  }
+
+  public ReaderException(String msg) {
+  	super(msg);
   }
 
 }

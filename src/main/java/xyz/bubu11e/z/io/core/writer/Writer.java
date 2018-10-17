@@ -14,23 +14,23 @@
  *    limitations under the License.
  */
 
-package xyz.julien_g.z.io.core.reader;
+package xyz.bubu11e.z.io.core.writer;
 
 import java.io.Closeable;
 import java.io.IOException;
 
 /**
  * Simple interface for z/OS filesystem
- * element readers.
+ * element writers.
  */
-public interface Reader extends Closeable {
+public interface Writer extends Closeable {
 
   /**
-   * This function will read the next available object.
-   * @return The object read as a byte array.
+   * This function will write the specified object.
+   * @param object Object to write.
    * @throws IOException If an I/O error occurs.
-   * @throws ReaderException If the object read is invalid.
+   * @throws WriterException If the specified object is invalid.
    */
-  public byte[] read() throws IOException, ReaderException; 
+  public void write(byte[] object) throws IOException, WriterException;
 
 }

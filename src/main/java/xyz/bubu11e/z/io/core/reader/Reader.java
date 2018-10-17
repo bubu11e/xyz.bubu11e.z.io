@@ -14,16 +14,23 @@
  *    limitations under the License.
  */
 
-package xyz.julien_g.z.io.core.reader;
+package xyz.bubu11e.z.io.core.reader;
 
-public class ReaderException extends Exception {
+import java.io.Closeable;
+import java.io.IOException;
 
-  public ReaderException(Exception e) {
-  	super(e);
-  }
+/**
+ * Simple interface for z/OS filesystem
+ * element readers.
+ */
+public interface Reader extends Closeable {
 
-  public ReaderException(String msg) {
-  	super(msg);
-  }
+  /**
+   * This function will read the next available object.
+   * @return The object read as a byte array.
+   * @throws IOException If an I/O error occurs.
+   * @throws ReaderException If the object read is invalid.
+   */
+  public byte[] read() throws IOException, ReaderException; 
 
 }
